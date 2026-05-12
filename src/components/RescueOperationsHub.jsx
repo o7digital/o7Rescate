@@ -198,7 +198,154 @@ export default function RescueOperationsHub() {
   }, [selectedRegion]);
 
   return (
-    // ...existing code...
-    // (Le code complet du composant principal est collé ici, voir message précédent)
+    <main className="min-h-screen bg-[#eef3f4] text-slate-950 antialiased">
+      <section className="relative isolate min-h-[940px] overflow-hidden bg-[#071116] text-white">
+        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_70%_20%,rgba(34,211,238,0.28),transparent_28%),radial-gradient(circle_at_20%_70%,rgba(16,185,129,0.22),transparent_25%),linear-gradient(135deg,#061014_0%,#0b1720_45%,#05070a_100%)]" />
+        <div className="absolute inset-0 -z-10 opacity-[0.18] bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:72px_72px]" />
+        <div className="absolute right-0 top-24 -z-10 h-[680px] w-[680px] rounded-full border border-cyan-300/20 bg-cyan-300/5 blur-sm" />
+        <div className="absolute bottom-[-280px] left-[-160px] -z-10 h-[620px] w-[620px] rounded-full bg-emerald-300/10 blur-3xl" />
+
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-7">
+          <div className="flex items-center gap-4">
+            <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-2xl shadow-cyan-500/20">
+              <Icon name="shield" />
+              <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-emerald-300 ring-4 ring-[#071116]" />
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.45em] text-cyan-200">O7 Rescue</p>
+              <p className="text-sm font-semibold text-white/85">Mountain & Coastal Safety OS</p>
+            </div>
+          </div>
+          <div className="hidden items-center gap-7 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-slate-200 backdrop-blur-xl md:flex">
+            <a className="hover:text-cyan-200" href="#operations">Operaciones</a>
+            <a className="hover:text-cyan-200" href="#drones">Drones</a>
+            <a className="hover:text-cyan-200" href="#garmin">Garmin</a>
+            <a className="hover:text-cyan-200" href="#zones">Zonas</a>
+          </div>
+          <button className="rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 shadow-2xl shadow-cyan-500/20 transition hover:-translate-y-0.5 hover:bg-cyan-100">
+            Solicitar demo
+          </button>
+        </nav>
+
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-28 pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <StatusPill tone="blue">Rescue Intelligence Platform</StatusPill>
+              <StatusPill tone="gold">México · montaña · costa</StatusPill>
+            </div>
+            <h1 className="mt-7 max-w-5xl text-6xl font-black leading-[0.92] tracking-[-0.06em] md:text-8xl">
+              Drones, Garmin y AI para rescate de alto riesgo.
+            </h1>
+            <p className="mt-7 max-w-2xl text-xl leading-9 text-slate-300">
+              Centro de mando premium para coordinar guías, dispositivos satelitales, drones térmicos, clima, bitácoras y autoridades en zonas de montaña, parques y playas.
+            </p>
+          </div>
+
+          <div className="relative">
+            <GlassCard className="relative overflow-hidden p-4">
+              <div className="rounded-[1.5rem] border border-white/10 bg-[#08151d]/95 p-5">
+                <div className="grid gap-3">
+                  {commandSignals.map((signal) => (
+                    <div key={signal.title} className="group rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-200 to-emerald-200 text-slate-950">
+                          <Icon name={signal.icon} />
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="mt-2 font-black text-white">{signal.title}</h4>
+                          <p className="mt-1 text-sm leading-6 text-slate-300">{signal.body}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </GlassCard>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 mx-auto -mt-24 grid max-w-7xl gap-4 px-6 md:grid-cols-4">
+        {missionStats.map((stat) => (
+          <div key={stat.label} className="rounded-[2rem] border border-white bg-white/90 p-6 shadow-2xl shadow-slate-900/10">
+            <p className="mt-6 text-5xl font-black tracking-[-0.05em]">{stat.value}</p>
+            <p className="mt-1 text-sm font-semibold text-slate-500">{stat.label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section id="operations" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-5">
+          {workflows.map((flow) => (
+            <div key={flow.code} className="rounded-[2.2rem] border border-slate-200/80 bg-white p-6 shadow-xl shadow-slate-900/[0.04]">
+              <h3 className="mt-4 text-3xl font-black tracking-[-0.04em]">{flow.title}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="drones" className="relative overflow-hidden bg-white py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mt-12 grid gap-5 md:grid-cols-4">
+            {fleet.map((item) => (
+              <div key={item.name} className="rounded-[2.2rem] border border-slate-200 bg-slate-950 p-6 text-white">
+                <h3 className="mt-7 text-2xl font-black tracking-[-0.04em]">{item.name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="garmin" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-8 lg:grid-cols-3">
+          <div className="relative overflow-hidden rounded-[2.4rem] bg-slate-950 p-8 text-white shadow-2xl shadow-slate-900/20 lg:col-span-1">
+            <h2 className="relative mt-6 text-4xl font-black tracking-[-0.05em]">Integración Garmin / InReach para guías.</h2>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#071116] py-24 text-white">
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid gap-4">
+            {aiAlerts.map((alert) => (
+              <div key={alert.title} className="rounded-[2.2rem] border border-white/10 bg-white/[0.06] p-6">
+                <h3 className="mt-1 text-3xl font-black tracking-[-0.04em]">{alert.title}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="zones" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionTitle eyebrow="Zonas operativas" title="De volcanes a playas: una plataforma nacional escalable." />
+          <div className="flex flex-wrap gap-2 rounded-full bg-white p-2 shadow-xl shadow-slate-900/[0.04] ring-1 ring-slate-200">
+            {regions.map((region) => (
+              <button
+                key={region}
+                onClick={() => setSelectedRegion(region)}
+                className={`rounded-full px-4 py-2 text-sm font-black transition ${selectedRegion === region ? "bg-slate-950 text-white shadow-lg" : "text-slate-600 hover:bg-slate-100"}`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredZones.map((zone) => (
+            <div key={zone.name} className="rounded-[2.2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/[0.04]">
+              <h3 className="mt-7 text-3xl font-black tracking-[-0.04em]">{zone.name}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="relative overflow-hidden rounded-[2.8rem] bg-slate-950 p-8 text-white shadow-2xl shadow-slate-900/20 md:p-12">
+          <h2 className="mt-5 text-5xl font-black tracking-[-0.06em] md:text-6xl">Backend listo para misiones reales, no solo para una landing.</h2>
+        </div>
+      </section>
+    </main>
   );
 }
